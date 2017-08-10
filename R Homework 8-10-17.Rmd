@@ -1,0 +1,41 @@
+---
+title: "Homework Assignment 8-10-17"
+author: "Benjamin Haimowitz"
+date: "August 10, 2017"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+##I used the examples in the textbook to put this together
+
+## Database of regularly-scheduled broadcast TV shows by season for the past ten years
+```{r}
+RegSched <- read.csv(file="C:/Users/206041363/Desktop/RegSched.csv", header = TRUE)
+
+library(ggplot2)
+```
+
+```{r}
+#How many shows did the 4 networks air each year?
+ggplot(data=RegSched) + geom_histogram(aes(x=Season))
+##2007 had the most regular programs in recent history
+```
+
+```{r}
+## what was each net's box plot just for this most recent season?
+## subsetting the data:
+Reg2017 <-RegSched [which(RegSched$Season >= 2016), ]
+
+ggplot(Reg2017, aes(y=Rtg, x=Net)) + geom_boxplot()
+```
+
+```{r}
+## 4-net ScatterPlot by season with each net a different color
+ggplot(RegSched,aes(x=Season, y=Rtg)) + geom_point(aes(color=Net))
+```
